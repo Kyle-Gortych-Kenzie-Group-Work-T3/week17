@@ -18,6 +18,7 @@ public class CancelEventActivity {
     @Inject
     public CancelEventActivity(EventDao eventDao) {
         this.eventDao = eventDao;
+
     }
 
     /**
