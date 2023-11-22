@@ -32,14 +32,17 @@ blank
 </div>
 <br>
 
-
-### Gradle Commands 
+### AWS Deploy DynamoDB Tables
 
 ```console
 aws cloudformation create-stack --stack-name groupwork-events --template-body file://GroupWork/KenzieEventPlanner/events_table.yaml --capabilities CAPABILITY_IAM &&
 aws cloudformation create-stack --stack-name groupwork-invites --template-body file://GroupWork/KenzieEventPlanner/invites_table.yaml --capabilities CAPABILITY_IAM &&
 aws cloudformation create-stack --stack-name groupwork-members --template-body file://GroupWork/KenzieEventPlanner/members_table.yaml --capabilities CAPABILITY_IAM
+```
 
+### Gradle Testing
+
+```console
 ./gradlew groupwork-kenzieeventplanner-phase0 &&
 ./gradlew groupwork-kenzieeventplanner-phase1 &&
 ./gradlew groupwork-kenzieeventplanner-phase2 &&
