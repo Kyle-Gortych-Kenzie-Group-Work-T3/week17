@@ -26,9 +26,9 @@ blank
  
 ### :hammer_and_wrench: Tools :
 
-| Build System | Languages | Virtualization | Cloud Service |
-| ------------ | --------- | -------------- | ------------- |
-| <img src="https://img.shields.io/badge/Gradle-white?style=plastic&logo=gradle&logoColor=black" title="gradle" alt="gradle" height="30"/> | <img src="https://custom-icon-badges.demolab.com/badge/Java-white.svg?&sytle=plastic&logo=java" title="Java" alt="Java" height="30"/> | <img src="https://img.shields.io/badge/Docker-white?style=plastic&logo=docker&logoColor=blue" title="docker" alt="docker" height="30"/> | <img src="https://img.shields.io/badge/AWS-white?style=plastic&logo=amazon-aws&logoColor=black" title="AWS" alt="AWS" height="30"/> |
+| Build System | Languages | Database | Cloud Service |
+| ------------ | --------- | --------- | ------------- |
+| <img src="https://img.shields.io/badge/Gradle-white?style=plastic&logo=gradle&logoColor=black" title="gradle" alt="gradle" height="30"/> | <img src="https://custom-icon-badges.demolab.com/badge/Java-white.svg?&sytle=plastic&logo=java" title="Java" alt="Java" height="30"/> | <img src="https://img.shields.io/badge/DynamoDB-white?style=plastic&logo=Amazon%20DynamoDB&logoColor=black" title="dynamodb" alt="dynamodb" height="30"/> | <img src="https://img.shields.io/badge/AWS-white?style=plastic&logo=amazon-aws&logoColor=black" title="AWS" alt="AWS" height="30"/> |
 </div>
 <br>
 
