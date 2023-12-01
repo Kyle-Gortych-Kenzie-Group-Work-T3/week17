@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
 
+import static com.kenzie.eventplanner.dao.models.Invite.MEMBER_ID_INDEX;
+
 /**
  * Manages access to Invite items.
  */
@@ -50,10 +52,24 @@ public class InviteDao {
      * @return List of Invite objects sent to the given member
      */
     public List<Invite> getInvitesSentToMember(String memberId) {
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-            .withFilterExpression("memberId = :memberId")
-            .withExpressionAttributeValues(ImmutableMap.of(":memberId", new AttributeValue(memberId)));
-        return new ArrayList<>(mapper.scan(Invite.class, scanExpression));
+        Invite invite = new Invite();
+        invite.setMemberId(memberId);
+
+        DynamoDBQueryExpression<Invite> queryExpression = new DynamoDBQueryExpression<Invite>()
+                .withHashKeyValues(invite)
+                .withConsistentRead(false)
+                .withIndexName(MEMBER_ID_INDEX);
+
+        return new ArrayList<>(mapper.query(Invite.class, queryExpression));
+//        Map<String, AttributeValue> valueMap = new HashMap<>();
+//        valueMap.put(":memberId", new AttributeValue().withS(memberId));
+//        DynamoDBQueryExpression<Invite> queryExpression = new DynamoDBQueryExpression<Invite>()
+//            .withIndexName(MEMBER_ID_INDEX)
+//            .withConsistentRead(false)
+//            .withKeyConditionExpression("memberId = :memberId")
+//            .withExpressionAttributeValues(valueMap);
+//
+//        return mapper.query(Invite.class, queryExpression) ;
     }
 
     /**
@@ -96,9 +112,9 @@ public class InviteDao {
         }
 
         DynamoDBQueryExpression<Invite> queryExpression = new DynamoDBQueryExpression<Invite>()
-            .withHashKeyValues(invite)
-            .withExclusiveStartKey(exclusiveStartKey)
-            .withLimit(10);
+                .withHashKeyValues(invite)
+                .withExclusiveStartKey(exclusiveStartKey)
+                .withLimit(10);
 
         return mapper.queryPage(Invite.class, queryExpression).getResults();
     }
@@ -148,8 +164,8 @@ public class InviteDao {
 
         DynamoDBDeleteExpression deleteExpression = new DynamoDBDeleteExpression();
         ExpectedAttributeValue expectedAttributeValue = new ExpectedAttributeValue()
-            .withComparisonOperator(ComparisonOperator.NE)
-            .withValue(new AttributeValue().withBOOL(true));
+                .withComparisonOperator(ComparisonOperator.NE)
+                .withValue(new AttributeValue().withBOOL(true));
         deleteExpression.withExpectedEntry("isAttending", expectedAttributeValue);
 
         try {
