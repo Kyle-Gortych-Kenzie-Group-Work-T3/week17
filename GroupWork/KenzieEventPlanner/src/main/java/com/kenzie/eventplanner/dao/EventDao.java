@@ -2,6 +2,7 @@ package com.kenzie.eventplanner.dao;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.QueryResultPage;
+
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.kenzie.eventplanner.dao.models.Event;
 
