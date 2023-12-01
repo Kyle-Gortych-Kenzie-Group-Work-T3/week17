@@ -1,13 +1,7 @@
 package com.kenzie.eventplanner.dao.models;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.kenzie.eventplanner.converter.ZonedDateTimeConverter;
-
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -17,6 +11,7 @@ import java.util.Objects;
  */
 @DynamoDBTable(tableName = "DynamoDBIndexes-Events")
 public class Event {
+    public static final String ORGANIZER_ID_INDEX = "OrganizerIdIndex";
     private String id;
     private String organizerId;
     private ZonedDateTime time;
@@ -32,16 +27,16 @@ public class Event {
     public void setId(String id) {
         this.id = id;
     }
-
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = ORGANIZER_ID_INDEX, attributeName = "organizerId")
     @DynamoDBAttribute(attributeName = "organizerId")
     public String getOrganizerId() {
         return organizerId;
     }
-
     public void setOrganizerId(String organizerId) {
         this.organizerId = organizerId;
     }
 
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = ORGANIZER_ID_INDEX, attributeName = "time")
     @DynamoDBAttribute(attributeName = "time")
     @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
     public ZonedDateTime getTime() {
@@ -90,11 +85,11 @@ public class Event {
         }
         Event event = (Event) o;
         return getId().equals(event.getId()) &&
-            Objects.equals(getOrganizerId(), event.getOrganizerId()) &&
-            Objects.equals(getTime(), event.getTime()) &&
-            Objects.equals(getName(), event.getName()) &&
-            Objects.equals(getDescription(), event.getDescription()) &&
-            Objects.equals(isCanceled, event.isCanceled);
+                Objects.equals(getOrganizerId(), event.getOrganizerId()) &&
+                Objects.equals(getTime(), event.getTime()) &&
+                Objects.equals(getName(), event.getName()) &&
+                Objects.equals(getDescription(), event.getDescription()) &&
+                Objects.equals(isCanceled, event.isCanceled);
     }
 
     @Override
@@ -105,12 +100,12 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-            "id='" + id + '\'' +
-            ", organizerId='" + organizerId + '\'' +
-            ", time=" + time +
-            ", name='" + name + '\'' +
-            ", description='" + description + '\'' +
-            ", isCanceled=" + isCanceled +
-            '}';
+                "id='" + id + '\'' +
+                ", organizerId='" + organizerId + '\'' +
+                ", time=" + time +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", isCanceled=" + isCanceled +
+                '}';
     }
 }
