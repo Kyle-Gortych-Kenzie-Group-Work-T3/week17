@@ -1,11 +1,6 @@
 package com.kenzie.eventplanner.dao.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.util.Date;
 import java.util.Objects;
@@ -15,7 +10,7 @@ import java.util.Objects;
  */
 @DynamoDBTable(tableName = "DynamoDBIndexes-Invites")
 public class Invite {
-
+    public static final String MEMBER_ID_INDEX = "MemberIdIndex";
     private String eventId;
     private String memberId;
     private Boolean isAttending;
@@ -30,7 +25,8 @@ public class Invite {
     public void setEventId(String eventId) {
         this.eventId = eventId;
     }
-
+    //@DynamoDBIndexHashKey(globalSecondaryIndexName = MEMBER_ID_INDEX, attributeName = "memberId")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = MEMBER_ID_INDEX)
     @DynamoDBRangeKey(attributeName = "memberId")
     public String getMemberId() {
         return memberId;
@@ -79,10 +75,10 @@ public class Invite {
         }
         Invite invite = (Invite) o;
         return getEventId().equals(invite.getEventId()) &&
-            getMemberId().equals(invite.getMemberId()) &&
-            Objects.equals(isAttending, invite.isAttending) &&
-            Objects.equals(isCanceled, invite.isCanceled) &&
-            Objects.equals(timeReceived, invite.timeReceived);
+                getMemberId().equals(invite.getMemberId()) &&
+                Objects.equals(isAttending, invite.isAttending) &&
+                Objects.equals(isCanceled, invite.isCanceled) &&
+                Objects.equals(timeReceived, invite.timeReceived);
     }
 
     @Override
@@ -93,11 +89,11 @@ public class Invite {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-            "eventId='" + eventId + '\'' +
-            ", memberId='" + memberId + '\'' +
-            ", isAttending=" + isAttending +
-            ", isCanceled=" + isCanceled +
-            ", timeReceived=" + timeReceived +
-            '}';
+                "eventId='" + eventId + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", isAttending=" + isAttending +
+                ", isCanceled=" + isCanceled +
+                ", timeReceived=" + timeReceived +
+                '}';
     }
 }
