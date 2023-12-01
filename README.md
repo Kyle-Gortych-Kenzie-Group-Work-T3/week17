@@ -44,7 +44,6 @@ aws cloudformation create-stack --stack-name groupwork-members --template-body f
 
 ```console
 ./gradlew groupwork-kenzieeventplanner-phase0 &&
-./gradlew groupwork-kenzieeventplanner-phase1 &&
 ./gradlew groupwork-kenzieeventplanner-phase2 &&
 ./gradlew groupwork-kenzieeventplanner-phase3 &&
 ./gradlew groupwork-kenzieeventplanner-phase4
